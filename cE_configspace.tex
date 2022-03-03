@@ -1,0 +1,38 @@
+%Render engine by Sascha Lill
+%(X,Z) = \R(x,y,z) casts a point on the X-Z-screen
+%The viewer is located at y = -\viewer_distance (in cm)
+%P = (\Px,\Py) is the point of infinite distance (in cm)
+\def\viewer_distance{20}
+\def\Px{4}
+\def\Py{8}
+\def\frac(#1,#2){#1/#2}
+\def\s(#1){\viewer_distance/(\viewer_distance + #1)}
+\def\R(#1,#2,#3){({\s(#2)*#1+(1-\s(#2))*\Px}, {\s(#2)*#3+(1-\s(#2))*\Py})}
+\begin{tikzpicture}
+\draw[thick, ->] \R(0,0,0)  -- \R(6.5,0,0) node [anchor = south west] {$ x_1 $};
+\draw[thick, ->] \R(0,0,0)  -- \R(0,7,0) node [anchor = south west] {$ x_2 $};
+\draw[thick, ->] \R(0,0,0)  -- \R(0,0,4) node [anchor = south west] {$ |\Psi^{(2)}(q)| $};
+
+\foreach \i in {1,...,6}{
+	\draw \R(\i,0.2,0) -- \R(\i,-0.2,0) node [anchor = north] {$ \i $};
+	\draw \R(0.1,\i,0) -- \R(-0.1,\i,0) node [anchor = east] {$ \i $};
+}
+
+
+\foreach \x in {1,...,6}{
+	\foreach \y in {1,...,6}{
+		\fill[blue] \R(\x,\y,0) circle (0.05);
+	}
+}
+
+\foreach \x in {1,...,6}{
+	\foreach \y in {0,...,5}{
+		\draw[blue, line width = 2] \R(\x,6-\y,0) -- \R(\x,6-\y,{2.8*exp(-\x*\x*0.05-\y*\y*0.05) )});
+		\draw[blue, line width = 2] \R(\x-0.1,6-\y,{2.8*exp(-\x*\x*0.05-\y*\y*0.05) )}) -- \R(\x+0.1,6-\y,{2.8*exp(-\x*\x*0.05-\y*\y*0.05) )}) ;
+	}
+}
+
+
+
+
+\end{tikzpicture}

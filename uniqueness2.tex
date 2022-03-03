@@ -1,0 +1,35 @@
+%Render engine by Sascha Lill
+%(X,Z) = \R(x,y,z) casts a point on the X-Z-screen
+%The viewer is located at y = -\viewer_distance (in cm)
+%P = (\Px,\Py) is the point of infinite distance (in cm)
+\def\viewer_distance{20}
+\def\Px{4}
+\def\Py{8}
+\def\frac(#1,#2){#1/#2}
+\def\s(#1){\viewer_distance/(\viewer_distance + #1)}
+\def\R(#1,#2,#3){({\s(#2)*#1+(1-\s(#2))*\Px}, {\s(#2)*#3+(1-\s(#2))*\Py})}
+\begin{tikzpicture}
+	\draw[dotted] \R(0,0,0) -- \R(5,0,0) -- \R(5,5.8,0) -- \R(0,5.8,0)-- cycle;
+	\filldraw[black!80!white,fill opacity = 0.2] \R(0,0,0) -- \R(2.2,2.2,2.2) -- \R(2.2,3.6,2.2) -- \R(0,5.8,0)-- cycle;
+	\filldraw[black!40!white,fill opacity = 0.2] \R(0,0,0) -- \R(5,0,0) -- \R(2.8,2.2,2.2) -- \R(2.2,2.2,2.2)-- cycle;
+	\filldraw[black!20!white,fill opacity = 0.2] \R(5,0,0) -- \R(5,5.8,0) -- \R(2.8,3.6,2.2) -- \R(2.8,2.2,2.2)-- cycle;
+	\filldraw[black!60!white,fill opacity = 0.2] \R(2.2,2.2,2.2) -- \R(2.8,2.2,2.2) -- \R(2.8,3.6,2.2) -- \R(2.2,3.6,2.2)-- cycle;
+	\draw[->,thick] (-0.2,0) -- ++(6,0) node[anchor = south west] {$x$};
+	\draw[->,thick] \R(0,-0.2,0) -- ++\R(0,8,0) node[anchor = south west] {$y$};
+	\draw[->,thick] (0,-0.2) -- ++(0,3.7) node[anchor = south west] {$z$};
+	\node at (-0.3,-0.3) {$0$};
+	
+	\fill \R(2.5,2.9,2.2) circle (0.1) node[anchor = south east] {$X$};
+	\node at (-0.3,2.2) {$T$};
+	\draw[dotted] (-0.1,2.2) -- (2.5,2.2) -- \R(2.5,2.9,2.2);
+	\draw \R(2.5,2.9,2.2) -- \R(2.5,5,2.2);
+	\draw \R(2.8,2.9,2.2) -- \R(2.8,5,2.2);
+	\node at \R(2.6,6,2.2) {$\varepsilon$};
+	\draw \R(2.5,2.9,2.2) -- \R(3.5,2.9,2.2);
+	\draw \R(2.5,2.2,2.2) -- \R(3.5,2.2,2.2);
+	\node at \R(4.2,2.6,2.2) {$\delta + \varepsilon$};
+	
+	\draw[->,line width = 1] \R(4,2.5,1) -- ++(0.4,0.4) node[anchor = south west] {$\boldsymbol{n}$};
+	\draw[->,line width = 1] \R(1.5,0.5,0.5) -- \R(1.5,0,1) node[anchor = south] {$\boldsymbol{n}$};
+	\draw[->,line width = 1, gray] \R(3,3,0) -- \R(3,3,-0.6) node[anchor = north] {$\boldsymbol{n}$};
+\end{tikzpicture}
