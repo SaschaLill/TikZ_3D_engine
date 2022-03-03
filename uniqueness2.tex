@@ -1,13 +1,13 @@
 %Render engine by Sascha Lill
-%(X,Z) = \R(x,y,z) casts a point on the X-Z-screen
-%The viewer is located at y = -\viewer_distance (in cm)
-%P = (\Px,\Py) is the point of infinite distance (in cm)
+%(X,Z) = \R(x,y,z) casts a point on the X-Z-screen at y = 0
+%The viewer is located in front of the screen at y = -\viewer_distance (in cm)
+%P = (\Px,\Pz) is the X-Z-coordinate of the viewer (in cm)
 \def\viewer_distance{20}
 \def\Px{4}
-\def\Py{8}
+\def\Pz{8}
 \def\frac(#1,#2){#1/#2}
 \def\s(#1){\viewer_distance/(\viewer_distance + #1)}
-\def\R(#1,#2,#3){({\s(#2)*#1+(1-\s(#2))*\Px}, {\s(#2)*#3+(1-\s(#2))*\Py})}
+\def\R(#1,#2,#3){({\s(#2)*#1+(1-\s(#2))*\Px}, {\s(#2)*#3+(1-\s(#2))*\Pz})}
 \begin{tikzpicture}
 	\draw[dotted] \R(0,0,0) -- \R(5,0,0) -- \R(5,5.8,0) -- \R(0,5.8,0)-- cycle;
 	\filldraw[black!80!white,fill opacity = 0.2] \R(0,0,0) -- \R(2.2,2.2,2.2) -- \R(2.2,3.6,2.2) -- \R(0,5.8,0)-- cycle;
